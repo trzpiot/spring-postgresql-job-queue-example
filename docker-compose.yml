@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  app-1:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - default
+  app-2:
+    build:
+      context: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    networks:
+      - default
+  postgres:
+    image: "postgres:15.2-alpine"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
